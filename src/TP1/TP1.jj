@@ -1,0 +1,19 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(TP1)package TP1;
+
+public class TP1{  public static void main(String args []) throws ParseException  {    TP1 parser = new TP1(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an instruction for the turtle :");      try      {        parser();      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        TP1.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(TP1)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{  < FORWARD : "FORWARD" | "FD" >| < RIGHT: "RIGHT" | "RT" >| < LEFT : "LEFT" | "LT" >| < REPEAT : "REPEAT" >
+| < PENUP : "PENUP" >
+| < PENDOWN : "PENDOWN" >}TOKEN : {  < DIGIT : ([ "0"-"9" ])+ >}
+void parser():
+{}{  instruction() "."
+}
+
+void instruction():
+{}
+{
+  (	(< RIGHT >|< LEFT >|< FORWARD >)< DIGIT >
+  | < REPEAT >< DIGIT >"[" (parser())+ "]"
+  | (< PENUP >|< PENDOWN >)
+  )+
+}
